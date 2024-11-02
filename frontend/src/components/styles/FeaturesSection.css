@@ -1,0 +1,46 @@
+.features {
+    padding: 60px 20px;
+    color: white;
+    background: linear-gradient(180deg, rgba(58,28,113,0.5), rgba(215,109,119,0.5)); /* Subtle gradient */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .features-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .feature-card {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .features::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/diagmonds-light.png'); /* Subtle texture */
+    opacity: 0.1;
+    z-index: 1;
+  }
+  
+  .feature-card {
+    position: relative;
+    z-index: 2;
+  }
+      

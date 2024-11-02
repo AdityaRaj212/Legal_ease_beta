@@ -1,0 +1,119 @@
+.pricingPage {
+  text-align: center;
+  padding: 60px;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Subtle gradient background */
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.plansContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px; /* Constrain max width to prevent stretching */
+  margin: 0 auto; /* Center the container */
+}
+
+.planCard {
+  background: linear-gradient(135deg, #fff, #f7f7f7); /* Gradient background for the cards */
+  border-radius: 12px;
+  border: 1px solid #ddd; /* Subtle border */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 380px; /* Increased width to make cards larger */
+  height: 480px; /* Set a fixed height for consistency */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.planCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Elevated shadow on hover */
+}
+
+.popularPlan {
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2); /* Highlight the popular plan */
+  border: 1px solid #007bff;
+}
+
+.popularBadge {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+.planTitle {
+  font-size: 28px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.goldStar {
+  color: #ffbf00; /* Gold color for the star icon */
+  margin-left: 8px;
+}
+
+.price {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.featuresList li {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: #28a745;
+  margin-right: 10px;
+}
+
+.iconDisabled {
+  color: #ccc;
+  margin-right: 10px;
+}
+
+.selectButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.selectButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}

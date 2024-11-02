@@ -1,0 +1,75 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ), 
+    url('./../../images/cover_image.jpg') center/cover no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  padding: 40px;
+  border-radius: 15px;
+  animation: fadeIn 2s ease-in;
+  z-index: 1;
+  max-width: 700px; /* Ensures it doesn't take too much space */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Optional: adds a soft shadow for more emphasis */
+}
+
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.cta-button {
+  background-color: #ff7e5f;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #feb47b;
+}
+
+.signin-button {
+  background-color: transparent;
+  border: 2px solid #ff7e5f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.signin-button:hover {
+  background-color: #ff7e5f;
+  border-color: #feb47b;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
