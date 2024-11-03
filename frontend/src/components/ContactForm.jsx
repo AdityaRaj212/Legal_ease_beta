@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles/ContactForm.css';
 
 const ContactForm = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
   const [email, setEmail] = useState('');
 
   const handleSubmit = async (e) => {

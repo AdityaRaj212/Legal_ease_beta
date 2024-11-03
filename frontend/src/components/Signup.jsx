@@ -13,6 +13,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from './styles/Signup.module.css'; // Importing the modular CSS
 
 const Signup = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

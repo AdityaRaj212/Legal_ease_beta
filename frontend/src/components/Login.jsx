@@ -14,6 +14,8 @@ import styles from './styles/Login.module.css'; // Importing the modular CSS
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
   const navigate = useNavigate();
   const {login} = useAuth();
   const [showPassword, setShowPassword] = useState(false);

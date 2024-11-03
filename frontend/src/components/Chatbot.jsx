@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import styles from './styles/Chatbot.module.css'; // Import the module CSS
 
 const Chatbot = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
   const { user, loading } = useAuth();
   const [chatLoading, setChatLoading] = useState(true);
   const [isChatVisible, setChatVisible] = useState(false);

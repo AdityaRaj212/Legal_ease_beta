@@ -13,6 +13,8 @@ import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
 
 const UserDashboard = () => {
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
   const navigate = useNavigate();
 
   const { user, loading } = useAuth();
