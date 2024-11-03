@@ -27,7 +27,7 @@ const Chatbot = () => {
   const fetchChatHistory = async () => {
     if(user && !loading){
       try {
-        const response = await axios.get(`/api/chat/history/${user._id}`, {
+        const response = await axios.get(`${apiUrl}/api/chat/history/${user._id}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
@@ -55,7 +55,7 @@ const Chatbot = () => {
 
       document.getElementById('userInput').value = '';
       try {
-        const response = await axios.post('/api/chat/chat', { message: userInput, userId: user._id }, {
+        const response = await axios.post(`${apiUrl}/api/chat/chat`, { message: userInput, userId: user._id }, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           }

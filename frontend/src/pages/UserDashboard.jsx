@@ -36,7 +36,7 @@ const UserDashboard = () => {
       const date30DaysAgo = new Date();
       date30DaysAgo.setDate(date30DaysAgo.getDate() - 30);
 
-      const response = await axios.get(`/api/chat/live/${userId}?from=${date30DaysAgo.toISOString()}`);
+      const response = await axios.get(`${apiUrl}/api/chat/live/${userId}?from=${date30DaysAgo.toISOString()}`);
       setLiveChatMessages(response.data.chats);
     } catch (error) {
       console.error('Error fetching last 30 days of chats:', error);
@@ -45,7 +45,7 @@ const UserDashboard = () => {
 
   const fetchChatHistory = async () => {
     try {
-      const response = await axios.get(`/api/chat/history/${userId}`);
+      const response = await axios.get(`${apiUrl}/api/chat/history/${userId}`);
       setChatHistory(response.data.chats);
       setFilteredChats(response.data.chats);
       setLiveChatMessages(response.data.chats);
@@ -112,7 +112,7 @@ const UserDashboard = () => {
   
       try {
         // Send user input to the backend
-        const response = await axios.post('/api/chat/chat', { message: userInput, userId: user._id }, {
+        const response = await axios.post(`${apiUrl}/api/chat/chat`, { message: userInput, userId: user._id }, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           }

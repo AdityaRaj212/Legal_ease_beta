@@ -13,7 +13,7 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response = await axios.post('/api/user/store', {email});
+      const response = await axios.post(`${apiUrl}/api/user/store`, {email});
       console.log(response.data);
       if (response.status === 201) {
         // alert('Thanks for signing up!');

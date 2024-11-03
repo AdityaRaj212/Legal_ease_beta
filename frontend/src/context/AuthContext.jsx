@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     // Function to fetch user info from the API
     const fetchUser = async (token) => {
         try {
-            const response = await axios.get('/api/user/me', {
+            const response = await axios.get(`${apiUrl}/api/user/me`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUser(response.data.user);
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         setLoading(true); // Start loading while login request is being processed
         try {
-            const response = await axios.post('/api/user/signIn', { email, password });
+            const response = await axios.post(`${apiUrl}/api/user/signIn`, { email, password });
             const { token, user } = response.data;
             console.log(response);
 

@@ -43,7 +43,7 @@ const Signup = () => {
     }
     try {
       console.log(userName, email, password);
-      const signupResponse = await axios.post('/api/user/signUp', { userName, email, password });
+      const signupResponse = await axios.post(`${apiUrl}/api/user/signUp`, { userName, email, password });
       if (signupResponse.data.status) {
         // signup successful
         navigate('/login');
