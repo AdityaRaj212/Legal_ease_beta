@@ -1,5 +1,6 @@
 import UserRepository from '../users/user.repository.js';
 import ChatRepository from './chat.repository.js';
+import axios from 'axios';
 
 export default class ChatController {
   constructor() {
@@ -23,8 +24,14 @@ export default class ChatController {
       user.remainingChats -= 1;
       await user.save();
 
-      // Generate a placeholder bot response (This can be replaced with actual AI logic)
-      const botResponse = `You said: ${message}. This is a placeholder response.`;
+      const response = await axios.post(process.env.MODEL_URL, {
+      query: message
+      });
+      // const response = await axios.post('https://justiceleague-bjyp.onrender.com/get_advice', {
+      // query: message
+      // });
+      const botResponse = response.data.response;
+      // const botResponse = `You said: ${message}. This is a placeholder response.`;
 
       // Save the chat to the chat history
       await this.chatRepository.saveChat(userId, message, botResponse);
