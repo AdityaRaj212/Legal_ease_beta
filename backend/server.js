@@ -38,7 +38,7 @@ server.use(express.static(buildPath));
 server.use('/api/user', userRouter);
 server.use('/api/chat', chatRouter);
 
-server.listen(3400, () => {
-    console.log('Server is up and running at 3400');
+server.listen(process.env.PORT, () => {
+    console.log(`Server is up and running at ${process.env.PORT}`);
     connectUsingMongoose();
 });
