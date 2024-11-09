@@ -1,7 +1,7 @@
 .features {
     padding: 60px 20px;
     color: white;
-    background: linear-gradient(180deg, rgba(58,28,113,0.5), rgba(215,109,119,0.5)); /* Subtle gradient */
+    background: linear-gradient(180deg, rgba(58,28,113,0.5), rgba(215,109,119,0.5)); 
     position: relative;
     overflow: hidden;
   }

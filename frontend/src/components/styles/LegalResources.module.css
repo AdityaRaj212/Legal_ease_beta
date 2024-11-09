@@ -1,0 +1,68 @@
+.legalResources {
+    padding: 80px 20px;
+    background: linear-gradient(180deg, rgba(58, 28, 113, 0.7), rgba(58, 28, 113, 0.3));
+    color: #fff;
+    /* max-width: 900px; */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #ff7e5f;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-bottom: 40px;
+}
+
+.resourceCategory {
+    margin-bottom: 50px;
+}
+
+.categoryTitle {
+    font-size: 1.8rem;
+    color: #feb47b;
+    margin-bottom: 20px;
+}
+
+.linksContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+}
+
+.linkCard {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.linkCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.linkTitle {
+    font-size: 1.5rem;
+    color: #ff7e5f;
+    margin-bottom: 8px;
+}
+
+.linkDescription {
+    font-size: 1.1rem;
+    color: #ddd;
+    line-height: 1.5;
+}

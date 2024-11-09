@@ -1,0 +1,79 @@
+/* Container styling */
+.promptContainer {
+    position: sticky;
+    bottom: 30px;
+    right: 30px;
+    width: 280px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+    cursor: pointer;
+    z-index: 1000;
+    margin: 0.5rem;
+  }
+  
+  .innerCard {
+    background: linear-gradient(145deg, #ff7e5f, #feb47b);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  
+  .iconContainer {
+    aspect-ratio: 1/1;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px 5px rgba(255, 126, 95, 0.5);
+    animation: glow 1.5s infinite alternate;
+    margin-right: 15px;
+  }
+  
+  .icon {
+    font-size: 30px;
+    color: #ff7e5f;
+  }
+  
+  .textContainer h3 {
+    font-size: 1.2rem;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+  }
+  
+  .textContainer p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #f7f7f7;
+  }
+  
+  /* Animation for glowing effect */
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px 3px rgba(255, 126, 95, 0.4);
+    }
+    to {
+      box-shadow: 0 0 20px 8px rgba(255, 126, 95, 0.7);
+    }
+  }
+  
+  /* Fade-in and fade-out animations */
+  .fadeIn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .fadeOut {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  

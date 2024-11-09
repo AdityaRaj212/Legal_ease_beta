@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import styles from './styles/Chatbot.module.css'; // Import the module CSS
+import styles from './styles/Chatbot.module.css'; 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const Chatbot = () => {
   const apiUrl = process.env.REACT_APP_API_BASE_URL;
@@ -124,7 +126,8 @@ const Chatbot = () => {
                     <p>You: {chat.message}</p>
                   </div>
                   <div className={styles.botMsg}>
-                    <p>Bot: {chat.botResponse}</p>
+                    {/* <p>Bot: {chat.botResponse}</p> */}
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{chat.botResponse}</ReactMarkdown>
                   </div>
                 </div>
               ))}
