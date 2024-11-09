@@ -27,16 +27,45 @@ export default class UserRepository{
         }
     }
 
-    async getUserById(userId){
-        try{
+    // async getUserById(userId){
+    //     try{
+    //         const user = await UserModel.findById(userId);
+    //         return user;
+    //     }catch(err){
+    //         console.error('Error while fetching user: ', err);
+    //         throw err;
+    //     }
+    // }
+
+    async getUserById(userId) {
+        try {
             const user = await UserModel.findById(userId);
+    
+            if (user) {
+                // Check if the user is subscribed or not
+                if (!user.subscribed) {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); // Set time to midnight
+    
+                    const lastResetDate = new Date(user.lastChatReset);
+                    lastResetDate.setHours(0, 0, 0, 0);
+    
+                    // If the last reset date is not today, reset the remaining chats
+                    if (today > lastResetDate) {
+                        user.remainingChats = 5; // Reset to 5 chats
+                        user.lastChatReset = new Date(); // Update last reset date
+                        await user.save(); // Save the updated user
+                    }
+                }
+            }
+    
             return user;
-        }catch(err){
+        } catch (err) {
             console.error('Error while fetching user: ', err);
             throw err;
         }
     }
-
+    
     async getMe(userId){
         try{    
             const user = await UserModel.findById(userId);

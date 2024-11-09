@@ -49,6 +49,7 @@ const UserDashboard = () => {
       setChatHistory(response.data.chats);
       setFilteredChats(response.data.chats);
       setLiveChatMessages(response.data.chats);
+      console.log(response.data.chats);
     } catch (error) {
       console.error('Error fetching chat history:', error);
     }
@@ -103,10 +104,10 @@ const UserDashboard = () => {
   
     if (userInput !== "") {
       // Append user's message to the chat
-      setLiveChatMessages(prevMessages => [
-        ...prevMessages,
-        { id: Date.now(), user: 'User', message: userInput, timestamp: new Date() }
-      ]);
+      // setLiveChatMessages(prevMessages => [
+      //   ...prevMessages,
+      //   { id: Date.now(), user: 'User', message: userInput, timestamp: new Date() }
+      // ]);
       
       setLiveMessage(''); // Clear input field
   
@@ -126,7 +127,7 @@ const UserDashboard = () => {
         // Append bot's response to the chat
         setLiveChatMessages(prevMessages => [
           ...prevMessages,
-          { id: Date.now() + 1, user: 'Bot', message: botReply, timestamp: new Date() }
+          { id: Date.now() + 1, userId: user._id, message: userInput,botResponse: botReply, timestamp: new Date() }
         ]);
   
         // Scroll to the bottom of chat
@@ -136,7 +137,7 @@ const UserDashboard = () => {
         // In case of error, show error message in chat
         setLiveChatMessages(prevMessages => [
           ...prevMessages,
-          { id: Date.now() + 1, user: 'Bot', message: "Error: Couldn't send message. Please try again later.", timestamp: new Date() }
+          { id: Date.now() + 1, userId: user._id, message: userInput,botResponse: "Error: Couldn't send message. Please try again later.", timestamp: new Date() }
         ]);
       }
     }
@@ -204,167 +205,347 @@ const UserDashboard = () => {
     { id: 'settings', label: 'Settings', icon: <Settings className={styles.icon} /> },
   ];
 
+  const renderDateDivider = (currentChat, index) => {
+    if (index === 0 || isNewDay(chatHistory[index - 1]?.timestamp, currentChat.timestamp)) {
+      return (
+        <div className={styles.dateDivider}>
+          {formatDate(currentChat.timestamp)}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const handleUpgradePlan = ()=>{
+    navigate('/pricing');
+  }
+
   if(loading) return (<Loading/>);
 
   if(!user) (navigate('/login'))
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <div className={styles.dashboardPage}>
-        <Greeting />
-
-        {/* Sidebar */}
-        <div className={styles.sidebar}>
-          {sidebarItems.map(item => (
-            <div
-              key={item.id}
-              className={`${styles.sidebarItem} ${activeSection === item.id ? styles.active : ''}`}
-              onClick={() => setActiveSection(item.id)}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Main Content */}
-        <div className={styles.mainContent}>
-          {activeSection === 'chatHistory' && (
-            <>
-              <h1 className={styles.title}>Chat History</h1>
-              <div className={styles.filters}>
-                <DatePicker
-                  label="Start Date"
-                  value={startDate}
-                  onChange={(newValue) => setStartDate(newValue)}
-                  renderInput={(params) => <TextField {...params} className={styles.datePicker} />}
-                />
-                <DatePicker
-                  label="End Date"
-                  value={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
-                  renderInput={(params) => <TextField {...params} className={styles.datePicker} />}
-                />
-                <TextField
-                  type="text"
-                  label="Search by message"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className={styles.searchInput}
-                />
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <div className={styles.dashboardPage}>
+          <Greeting />
+  
+          {/* Sidebar */}
+          <div className={styles.sidebar}>
+            {sidebarItems.map(item => (
+              <div
+                key={item.id}
+                className={`${styles.sidebarItem} ${activeSection === item.id ? styles.active : ''}`}
+                onClick={() => setActiveSection(item.id)}
+              >
+                {item.icon}
+                <span>{item.label}</span>
               </div>
-              <div className={styles.chatHistory}>
-                {filteredChats.length ? (
-                  filteredChats.map((chat, index) => (
-                    <React.Fragment key={chat._id}>
-                      <div className={styles.userChat}>
-                        <div className={styles.bubble}>
-                          <p>{chat.message}</p>
-                          <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
-                        </div>
-                      </div>
-                      <div className={styles.botChat}>
-                        <div className={styles.bubble}>
-                          <p>{chat.botResponse}</p>
-                          <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
-                        </div>
-                      </div>
-                    </React.Fragment>
-                  ))
-                ) : (
-                  <div>No chat history found</div>
-                )}
-              </div>
-            </>
-          )}
-
-          {activeSection === 'liveChat' && (
-            <>
-              <h1 className={styles.title}>Live Chat</h1>
-              <div className={styles.liveChat}>
-                <div className={styles.chatWindow}>
-                  <div className={styles.chatMessages}>
-                    {liveChatMessages.length ? (
-                      liveChatMessages.map((chat) => (
-                        // <div key={msg.id} className={msg.user === 'User' ? styles.userChat : styles.botChat}>
-                        //   <div className={styles.bubble}>
-                        //     <p>{msg.message}</p>
-                        //     <span className={styles.timestamp}>{formatTime(msg.timestamp)}</span>
-                        //   </div>
-                        // </div>
-                        <>
+            ))}
+          </div>
+  
+          {/* Main Content */}
+          <div className={styles.mainContent}>
+            {activeSection === 'chatHistory' && (
+              <>
+                <h1 className={styles.title}>Chat History</h1>
+                <div className={styles.filters}>
+                  <DatePicker
+                    label="Start Date"
+                    value={startDate}
+                    onChange={(newValue) => setStartDate(newValue)}
+                    renderInput={(params) => <TextField {...params} className={styles.datePicker} />}
+                  />
+                  <DatePicker
+                    label="End Date"
+                    value={endDate}
+                    onChange={(newValue) => setEndDate(newValue)}
+                    renderInput={(params) => <TextField {...params} className={styles.datePicker} />}
+                  />
+                  <TextField
+                    type="text"
+                    label="Search by message"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className={styles.searchInput}
+                  />
+                </div>
+                <div className={styles.chatHistory}>
+                  {filteredChats.length ? (
+                    filteredChats.map((chat, index) => (
+                      <React.Fragment key={chat._id}>
+                        {renderDateDivider(chat, index)}
                         <div className={styles.userChat}>
                           <div className={styles.bubble}>
                             <p>{chat.message}</p>
-                            <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
+                            <span className={styles.timestamp}>{formatTime(chat.timestamp)}</span>
                           </div>
                         </div>
-                        <div className={styles.botChat}>
-                          <div className={styles.bubble}>
-                            <p>{chat.botResponse}</p>
-                            <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
+                        {chat.botResponse && (
+                          <div className={styles.botChat}>
+                            <div className={styles.bubble}>
+                              <p>{chat.botResponse}</p>
+                              <span className={styles.timestamp}>{formatTime(chat.timestamp)}</span>
+                            </div>
                           </div>
-                        </div>
-                        </>
-                      ))
-                    ) : (
-                      <div className={styles.noMessages}>No messages yet</div>
-                    )}
+                        )}
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <div>No chat history found</div>
+                  )}
+                </div>
+              </>
+            )}
+  
+            {activeSection === 'liveChat' && (
+              <>
+                <h1 className={styles.title}>Live Chat</h1>
+                <div className={styles.liveChat}>
+                  <div className={styles.chatWindow}>
+                    <div className={styles.chatMessages} id="chatMessages">
+                      {liveChatMessages.length ? (
+                        liveChatMessages.map((chat, index) => (
+                          <React.Fragment key={chat.id}>
+                            {renderDateDivider(chat, index)}
+                            <div className={styles.userChat}>
+                              <div className={styles.bubble}>
+                                <p>{chat.message}</p>
+                                <span className={styles.timestamp}>{formatTime(chat.timestamp)}</span>
+                              </div>
+                            </div>
+                            {chat.botResponse && (
+                              <div className={styles.botChat}>
+                                <div className={styles.bubble}>
+                                  <p>{chat.botResponse}</p>
+                                  <span className={styles.timestamp}>{formatTime(chat.timestamp)}</span>
+                                </div>
+                              </div>
+                            )}
+                            {/* {renderDateDivider(chat, index)}
+                            <div className={chat.user === 'User' ? styles.userChat : styles.botChat}>
+                              <div className={styles.bubble}>
+                                <p>{chat.message}</p>
+                                <span className={styles.timestamp}>{formatTime(chat.timestamp)}</span>
+                              </div>
+                            </div> */}
+                          </React.Fragment>
+                        ))
+                      ) : (
+                        <div className={styles.noMessages}>No messages yet</div>
+                      )}
+                    </div>
+                    <div className={styles.inputContainer}>
+                      <TextField
+                        label="Type your message"
+                        variant="outlined"
+                        fullWidth
+                        value={liveMessage}
+                        onChange={(e) => setLiveMessage(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={handleSendMessage}>
+                                <SendIcon />
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className={styles.inputContainer}>
-                    <TextField
-                      label="Type your message"
-                      variant="outlined"
-                      fullWidth
-                      value={liveMessage}
-                      onChange={(e) => setLiveMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton onClick={handleSendMessage}>
-                              <SendIcon />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+                </div>
+              </>
+            )}
+  
+            {activeSection === 'settings' && (
+              <div className={styles.settings}>
+                <h1 className={styles.title}>Account Settings</h1>
+                <div className={styles.accountSettings}>
+                  <div className={styles.settingItem}>
+                    <label>Email:</label>
+                    <TextField value={user.email} readOnly fullWidth />
+                  </div>
+                  <div className={styles.settingItem}>
+                    <label>Password:</label>
+                    <button className={styles.changePasswordButton} onClick={() => alert('Change Password')}>
+                      Change Password
+                    </button>
+                  </div>
+                  <div className={styles.subscriptionInfo}>
+                    <div className={styles.settingItem}>
+                      <strong>Subscription Tier:</strong> {subscriptionPlan}
+                    </div>
+                    <button className={styles.upgradeButton} onClick={() => handleUpgradePlan()}>
+                      Upgrade Plan
+                    </button>
                   </div>
                 </div>
               </div>
-            </>
-          )}
-
-          {activeSection === 'settings' && (
-            <div className={styles.settings}>
-              <h1 className={styles.title}>Account Settings</h1>
-              <div className={styles.accountSettings}>
-                <div>
-                  <label>Email: </label>
-                  <input type="email" value={user.email} readOnly />
-                </div>
-                <div>
-                  <label>Password: </label>
-                  <button className={styles.changePasswordButton} onClick={() => alert('Change Password')}>
-                    Change Password
-                  </button>
-                </div>
-                <div className={styles.subscriptionInfo}>
-                  <div><strong>Subscription Tier:</strong> {subscriptionPlan}</div>
-                  <button className={styles.upgradeButton} onClick={() => alert('Upgrade to a higher plan!')}>
-                    Upgrade Plan
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-      {activeSection!='liveChat' && (
-        <Chatbot/>
-      )}
-    </LocalizationProvider>
-  );
+        {activeSection !== 'liveChat' && <Chatbot />}
+      </LocalizationProvider>
+    );
+
+  // return (
+  //   <LocalizationProvider dateAdapter={AdapterDateFns}>
+  //     <div className={styles.dashboardPage}>
+  //       <Greeting />
+
+  //       {/* Sidebar */}
+  //       <div className={styles.sidebar}>
+  //         {sidebarItems.map(item => (
+  //           <div
+  //             key={item.id}
+  //             className={`${styles.sidebarItem} ${activeSection === item.id ? styles.active : ''}`}
+  //             onClick={() => setActiveSection(item.id)}
+  //           >
+  //             {item.icon}
+  //             <span>{item.label}</span>
+  //           </div>
+  //         ))}
+  //       </div>
+
+  //       {/* Main Content */}
+  //       <div className={styles.mainContent}>
+  //         {activeSection === 'chatHistory' && (
+  //           <>
+  //             <h1 className={styles.title}>Chat History</h1>
+  //             <div className={styles.filters}>
+  //               <DatePicker
+  //                 label="Start Date"
+  //                 value={startDate}
+  //                 onChange={(newValue) => setStartDate(newValue)}
+  //                 renderInput={(params) => <TextField {...params} className={styles.datePicker} />}
+  //               />
+  //               <DatePicker
+  //                 label="End Date"
+  //                 value={endDate}
+  //                 onChange={(newValue) => setEndDate(newValue)}
+  //                 renderInput={(params) => <TextField {...params} className={styles.datePicker} />}
+  //               />
+  //               <TextField
+  //                 type="text"
+  //                 label="Search by message"
+  //                 value={searchTerm}
+  //                 onChange={(e) => setSearchTerm(e.target.value)}
+  //                 className={styles.searchInput}
+  //               />
+  //             </div>
+  //             <div className={styles.chatHistory}>
+  //               {filteredChats.length ? (
+  //                 filteredChats.map((chat, index) => (
+  //                   <React.Fragment key={chat._id}>
+  //                     <div className={styles.userChat}>
+  //                       <div className={styles.bubble}>
+  //                         <p>{chat.message}</p>
+  //                         <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
+  //                       </div>
+  //                     </div>
+  //                     <div className={styles.botChat}>
+  //                       <div className={styles.bubble}>
+  //                         <p>{chat.botResponse}</p>
+  //                         <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
+  //                       </div>
+  //                     </div>
+  //                   </React.Fragment>
+  //                 ))
+  //               ) : (
+  //                 <div>No chat history found</div>
+  //               )}
+  //             </div>
+  //           </>
+  //         )}
+
+  //         {activeSection === 'liveChat' && (
+  //           <>
+  //             <h1 className={styles.title}>Live Chat</h1>
+  //             <div className={styles.liveChat}>
+  //               <div className={styles.chatWindow}>
+  //                 <div className={styles.chatMessages}>
+  //                   {liveChatMessages.length ? (
+  //                     liveChatMessages.map((chat) => (
+  //                       // <div key={msg.id} className={msg.user === 'User' ? styles.userChat : styles.botChat}>
+  //                       //   <div className={styles.bubble}>
+  //                       //     <p>{msg.message}</p>
+  //                       //     <span className={styles.timestamp}>{formatTime(msg.timestamp)}</span>
+  //                       //   </div>
+  //                       // </div>
+  //                       <>
+  //                       <div className={styles.userChat}>
+  //                         <div className={styles.bubble}>
+  //                           <p>{chat.message}</p>
+  //                           <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
+  //                         </div>
+  //                       </div>
+  //                       <div className={styles.botChat}>
+  //                         <div className={styles.bubble}>
+  //                           <p>{chat.botResponse}</p>
+  //                           <span className={styles.timestamp}>{new Date(chat.timestamp).toLocaleTimeString()}</span>
+  //                         </div>
+  //                       </div>
+  //                       </>
+  //                     ))
+  //                   ) : (
+  //                     <div className={styles.noMessages}>No messages yet</div>
+  //                   )}
+  //                 </div>
+  //                 <div className={styles.inputContainer}>
+  //                   <TextField
+  //                     label="Type your message"
+  //                     variant="outlined"
+  //                     fullWidth
+  //                     value={liveMessage}
+  //                     onChange={(e) => setLiveMessage(e.target.value)}
+  //                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+  //                     InputProps={{
+  //                       endAdornment: (
+  //                         <InputAdornment position="end">
+  //                           <IconButton onClick={handleSendMessage}>
+  //                             <SendIcon />
+  //                           </IconButton>
+  //                         </InputAdornment>
+  //                       ),
+  //                     }}
+  //                   />
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </>
+  //         )}
+
+  //         {activeSection === 'settings' && (
+  //           <div className={styles.settings}>
+  //             <h1 className={styles.title}>Account Settings</h1>
+  //             <div className={styles.accountSettings}>
+  //               <div>
+  //                 <label>Email: </label>
+  //                 <input type="email" value={user.email} readOnly />
+  //               </div>
+  //               <div>
+  //                 <label>Password: </label>
+  //                 <button className={styles.changePasswordButton} onClick={() => alert('Change Password')}>
+  //                   Change Password
+  //                 </button>
+  //               </div>
+  //               <div className={styles.subscriptionInfo}>
+  //                 <div><strong>Subscription Tier:</strong> {subscriptionPlan}</div>
+  //                 <button className={styles.upgradeButton} onClick={() => alert('Upgrade to a higher plan!')}>
+  //                   Upgrade Plan
+  //                 </button>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         )}
+  //       </div>
+  //     </div>
+  //     {activeSection!='liveChat' && (
+  //       <Chatbot/>
+  //     )}
+  //   </LocalizationProvider>
+  // );
 };
 
 export default UserDashboard;

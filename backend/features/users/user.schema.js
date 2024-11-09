@@ -25,7 +25,12 @@ const UserSchema = new mongoose.Schema({
     subscribed: {
         type: Boolean,
         default: false
+    },
+    lastChatReset: {
+        type: Date,
+        default: new Date(0) // Default to the Unix epoch (or you can use null)
     }
 });
+
 
 export const UserModel = mongoose.model('User',UserSchema);

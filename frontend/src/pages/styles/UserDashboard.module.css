@@ -86,6 +86,7 @@
   border-radius: 20px;
   margin-bottom: 10px;
   position: relative;
+  max-width: 75%;
 }
 
 .userChat .bubble {
@@ -160,3 +161,58 @@
 .upgradeButton:hover, .changePasswordButton:hover {
   background-color: #16a085;
 }
+
+/* Date Divider */
+.dateDivider {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #555;
+  font-size: 14px;
+}
+
+/* Redesigned Settings */
+.settings {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accountSettings .settingItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.accountSettings label {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.changePasswordButton,
+.upgradeButton {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.changePasswordButton:hover,
+.upgradeButton:hover {
+  background-color: #16a085;
+}
+
+.settingItem input,
+.settingItem .MuiTextField-root {
+  width: 100%;
+}
+
