@@ -24,7 +24,7 @@ function HeroSection({ scrollToFeatures }) {
           <button className="cta-button" onClick={scrollToFeatures}>
             Get Started
           </button>
-          {/* {user===null ? (
+          {user===null ? (
             <button className="signin-button" onClick={handleSignInClick}>
               Sign In
             </button>
@@ -32,11 +32,11 @@ function HeroSection({ scrollToFeatures }) {
             <button className="signin-button" onClick={logout}>
               Sign Out
             </button>
-          )} */}
+          )}
 
-            <button className="signin-button" onClick={logout}>
+            {/* <button className="signin-button" onClick={logout}>
               Sign Out
-            </button>
+            </button> */}
         </div>
       </div>
     </div>

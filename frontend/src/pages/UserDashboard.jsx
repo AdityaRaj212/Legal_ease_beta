@@ -355,7 +355,7 @@ const UserDashboard = () => {
             )}
           </div>
         </div>
-        {activeSection !== 'liveChat' && <Chatbot />}
+        {/* {activeSection !== 'liveChat' && <Chatbot />} */}
       </LocalizationProvider>
     );
 };

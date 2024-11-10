@@ -1,108 +1,123 @@
-/* General page styling */
+/* Background styling */
 .loginPage {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb); /* Gradient background */
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  /* Form container */
-  .loginContainer {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    animation: fadeInUp 1s ease-in-out; /* Smooth animation */
-  }
-  
-  /* Title */
-  .title {
-    margin-bottom: 20px;
-    color: #4e54c8;
-  }
-  
-  /* Input fields */
-  .inputField {
-    margin-bottom: 20px;
-    animation: inputGlow 0.3s ease-in-out;
-  }
-  
-  .inputField:hover,
-  .inputField:focus {
-    border-color: #8f94fb;
-  }
-  
-  /* Button styling */
-  .submitButton {
-    background: linear-gradient(135deg, #8f94fb, #4e54c8);
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .submitButton:hover {
-    background-color: #6c73f7;
-  }
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('./../../images/auth_image.jpeg') no-repeat center center/cover;
+  position: relative;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+}
 
-  /* Styles for the 'Don't have an account' line */
+/* Overlay for background image */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  z-index: 1;
+}
+
+/* Form container */
+.loginContainer {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 1s ease-in-out; /* Smooth animation */
+  backdrop-filter: blur(8px); /* Glassy effect */
+}
+
+/* Icon styling */
+.icon {
+  font-size: 50px;
+  color: #5c6bc0;
+  margin-bottom: 10px;
+}
+
+/* Title */
+.title {
+  margin-bottom: 20px;
+  color: #2e3b55;
+  font-weight: bold;
+}
+
+/* Input fields */
+.inputField {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.inputField:hover,
+.inputField:focus-within {
+  box-shadow: 0 0 8px rgba(92, 107, 192, 0.5);
+}
+
+/* Button styling */
+.submitButton {
+  background: linear-gradient(135deg, #5c6bc0, #3949ab);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.submitButton:hover {
+  background: linear-gradient(135deg, #3949ab, #283593);
+  transform: scale(1.05);
+}
+
+/* Signup link */
 .signupLink {
-    margin-top: 20px;
-    color: #4e54c8;
-    text-align: center;
-    font-size: 16px;
-  }
-  
-  .signupAnchor {
-    background: linear-gradient(135deg, #8f94fb, #4e54c8);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .signupAnchor:hover {
-    color: #8f94fb;
-    text-shadow: 0 0 8px rgba(143, 148, 251, 0.8);
-  }
+  margin-top: 20px;
+  color: #37474f;
+  font-size: 14px;
+}
 
-  /* Error message styling */
+.signupAnchor {
+  color: #5c6bc0;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.signupAnchor:hover {
+  color: #3949ab;
+  text-shadow: 0 0 5px rgba(92, 107, 192, 0.6);
+  text-decoration: underline;
+}
+
+/* Error message styling */
 .errorMessage {
   margin-bottom: 20px;
   text-align: center;
-  background-color: #f8d7da;
-  color: #721c24;
-  border-radius: 4px;
+  background-color: #ffe9e9;
+  color: #c0392b;
+  border-radius: 6px;
   padding: 10px;
-} 
-  
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  @keyframes inputGlow {
-    from {
-      box-shadow: none;
-    }
-    to {
-      box-shadow: 0 0 5px rgba(79, 84, 202, 0.7);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}

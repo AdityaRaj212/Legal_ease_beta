@@ -25,9 +25,9 @@ const Home = () => {
 
     if(loading) return (<Loading/>);
 
-    if(!user){
-        navigate('/login');
-    }
+    // if(!user){
+    //     navigate('/login');
+    // }
 
     return (
         <div className={styles.container}>
@@ -37,7 +37,7 @@ const Home = () => {
             <DescriptionSection />
             <UserReviews />
             <ContactForm />
-            <Chatbot/>
+            {/* <Chatbot/> */}
             <ChatbotPrompt />
         </div>
     )

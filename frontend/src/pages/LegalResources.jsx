@@ -116,7 +116,7 @@ const LegalResourcesPage = () => {
           </div>
         </div>
       ))}
-      <button className={styles.returnButton} onClick={() => window.history.back()}>Return to Home</button>
+      <button className={styles.returnButton} onClick={() => window.history.back()}>Go Back</button>
     </div>
   );
 };
