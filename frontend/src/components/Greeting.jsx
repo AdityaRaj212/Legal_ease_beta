@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import Loading from './Loading';
 import { Person, ExitToApp, AttachMoney, Dashboard, Home } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { GoLaw } from "react-icons/go";
 
 const Greeting = () => {
     const { user, loading, logout } = useAuth();
@@ -57,6 +58,10 @@ const Greeting = () => {
         navigate('/dashboard');
     };
 
+    const handleSwitchToOnboarding = () => {
+        navigate('/statistics');
+    };
+
     // Scroll event listener to detect when user starts scrolling
     useEffect(() => {
         const handleScroll = () => {
@@ -73,7 +78,22 @@ const Greeting = () => {
 
     if (loading) return <Loading />;
 
-    if (!loadedUser) return null;
+    if (!loadedUser){
+        return (
+            <div className={`${styles.greetingContainer} ${isScrolled ? styles.scrolled : ''}`}>
+                <div className={styles.option} onClick={() => navigate('/')}>
+                    <Home className={styles.icon} />
+                    <span className={styles.text}>Home</span>
+                </div>
+                <div className={styles.optionsContainer}>
+                    <button className={styles.resourcesButton} onClick={() => navigate('/legal-resources')}>
+                        Explore Legal Resources
+                    </button>
+                </div>
+            </div>
+        );
+    }
+    // if (!loadedUser) return null;
 
     return (
         <div className={`${styles.greetingContainer} ${isScrolled ? styles.scrolled : ''}`}>
@@ -104,6 +124,10 @@ const Greeting = () => {
                         <button className={styles.modalButton} onClick={handleSwitchToUserProfile}>
                             <Person className={styles.icon} />
                             <span className={styles.text}>User Profile</span>
+                        </button>
+                        <button className={styles.modalButton} onClick={handleSwitchToOnboarding}>
+                            <GoLaw className={styles.icon}/>
+                            <span className={styles.text}>Lawyer Onboarding</span>
                         </button>
                         <button className={styles.modalButton} onClick={handleLogout}>
                             <ExitToApp className={styles.icon} />

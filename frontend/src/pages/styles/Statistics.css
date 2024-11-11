@@ -1,0 +1,124 @@
+/* Main Page Container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 0 20px;
+    background-color: #f7f9fc;
+    min-height: 100vh;
+  }
+  
+  /* Header Section */
+  .header {
+    text-align: center;
+    padding: 20px 0;
+    color: #004b8d;
+  }
+  
+  .header h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+  }
+  
+  .header p {
+    font-size: 1.2em;
+    color: #666;
+  }
+  
+  /* Statistics Section */
+  .stats-container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .stats-container h2 {
+    font-size: 2em;
+    color: #004b8d;
+    margin-bottom: 20px;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+  }
+  
+  /* Individual Stat Items */
+  .stat-item {
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* text-align: left; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .stat-item h3 {
+    font-size: 1.2em;
+    color: #004b8d;
+    margin: 10px 0 5px;
+  }
+  
+  .stat-item p {
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+  }
+  
+  /* Icons */
+  .icon {
+    color: #004b8d;
+    margin-bottom: 10px;
+  }
+  
+  /* Join Us Section */
+  .join-container {
+    background: #004b8d;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .join-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  
+  .join-container p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+  
+  .join-button {
+    background: #ffffff;
+    color: #004b8d;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .join-button:hover {
+    background: #e0e0e0;
+    color: #002b6e;
+  }

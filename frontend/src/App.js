@@ -10,6 +10,7 @@ import { AuthProvider } from './context/AuthContext';
 import PricingPlans from './pages/PricingPlans';
 import UserDashboard from './pages/UserDashboard';
 import LegalResourcesPage from './pages/LegalResources';
+import Statistics from './pages/Statistics';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/pricing" element = {<PricingPlans/>} />
           <Route path="/dashboard" element = {<UserDashboard/>} />
           <Route path="/legal-resources" element = {<LegalResourcesPage/>} />
+          <Route path="/statistics" element={<Statistics/>} />
         </Routes>
           {/* <Chatbot/> */}
       </Router> 
